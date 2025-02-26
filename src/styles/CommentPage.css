@@ -949,4 +949,60 @@
     width: 100%;
     flex: auto;
   }
+}
+
+/* 결과 없음 UI */
+.no-results {
+  text-align: center;
+  padding: 60px 20px;
+  background-color: #f8f9fa;
+  border-radius: 12px;
+  margin: 20px 0;
+}
+
+.no-results-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.no-data-icon {
+  color: #bdbdbd;
+  margin-bottom: 8px;
+}
+
+.no-results h3 {
+  margin: 0;
+  color: #333;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.no-results p {
+  margin: 0;
+  color: #666;
+  font-size: 0.95rem;
+}
+
+.back-to-list-button {
+  margin-top: 8px;
+  padding: 10px 20px;
+  background-color: #f0f4fc;
+  color: #3f51b5;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.back-to-list-button:hover {
+  background-color: #e3f2fd;
+  color: #1a237e;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 5px rgba(63, 81, 181, 0.2);
 } 

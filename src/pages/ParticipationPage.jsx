@@ -58,10 +58,6 @@ function ParticipationPage() {
           prevPage: data.data.prevPage
         });
         
-        if (data.data.content.length === 0) {
-          setError('해당 목표에 대한 참여 정보가 없습니다.');
-        }
-        
         setCurrentPage(page);
       } else {
         setError(data.message || '참여 목록을 불러오는데 실패했습니다.');
@@ -95,6 +91,7 @@ function ParticipationPage() {
       case 'IN_PROGRESS': return 'status-in-progress';
       case 'COMPLETED': return 'status-completed';
       case 'FAILED': return 'status-failed';
+      case 'CANCELLED': return 'status-cancelled';
       default: return '';
     }
   };
@@ -104,6 +101,7 @@ function ParticipationPage() {
       case 'IN_PROGRESS': return '진행중';
       case 'COMPLETED': return '완료됨';
       case 'FAILED': return '실패';
+      case 'CANCELLED': return '취소됨';
       default: return status;
     }
   };
@@ -217,10 +215,16 @@ function ParticipationPage() {
             
             {participations.length === 0 && !loading && (
               <div className="no-results">
-                <p>참여 정보가 없습니다.</p>
-                <button className="text-button" onClick={goToGoalList}>
-                  목표 목록으로 돌아가기
-                </button>
+                <div className="no-results-content">
+                  <svg className="no-data-icon" viewBox="0 0 24 24" width="48" height="48">
+                    <path fill="currentColor" d="M20 6H4V4H20V6ZM21 12V14H3V12H21ZM17 19H7V17H17V19Z"/>
+                  </svg>
+                  <h3>참여 정보를 찾을 수 없습니다</h3>
+                  <p>해당 목표에 대한 참여 정보가 없습니다.</p>
+                  <button className="back-to-list-button" onClick={goToGoalList}>
+                    목표 목록으로 돌아가기
+                  </button>
+                </div>
               </div>
             )}
             

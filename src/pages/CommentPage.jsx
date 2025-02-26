@@ -67,10 +67,6 @@ function CommentPage() {
           prevPage: data.data.prevPage
         });
         
-        if (data.data.content.length === 0) {
-          setError('해당 참여에 대한 코멘트 방이 없습니다.');
-        }
-        
         setCurrentPage(page);
       } else {
         setError(data.message || '코멘트 방 목록을 불러오는데 실패했습니다.');
@@ -195,10 +191,16 @@ function CommentPage() {
             
             {commentRooms.length === 0 && !loading && (
               <div className="no-results">
-                <p>코멘트 방이 없습니다.</p>
-                <button className="text-button" onClick={goToParticipationList}>
-                  참여 현황으로 돌아가기
-                </button>
+                <div className="no-results-content">
+                  <svg className="no-data-icon" viewBox="0 0 24 24" width="48" height="48">
+                    <path fill="currentColor" d="M20 6H4V4H20V6ZM21 12V14H3V12H21ZM17 19H7V17H17V19Z"/>
+                  </svg>
+                  <h3>코멘트 방을 찾을 수 없습니다</h3>
+                  <p>해당 참여에 대한 코멘트 방이 없습니다.</p>
+                  <button className="back-to-list-button" onClick={goToParticipationList}>
+                    참여 현황으로 돌아가기
+                  </button>
+                </div>
               </div>
             )}
             
