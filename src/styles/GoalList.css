@@ -1,0 +1,458 @@
+.goal-list-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+}
+
+.goal-list-container h1 {
+  margin-bottom: 24px;
+  color: #333;
+  font-size: 1.75rem;
+  font-weight: 600;
+}
+
+/* 데스크탑/모바일 뷰 전환 */
+.desktop-view {
+  display: block;
+}
+
+.mobile-view {
+  display: none;
+}
+
+/* 테이블 스타일 */
+.table-container {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.goal-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.95rem;
+}
+
+.goal-table th {
+  background-color: white;
+  color: #666;
+  font-weight: 600;
+  padding: 16px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.2s;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+}
+
+.goal-table th:hover {
+  background-color: #f8f9fa;
+}
+
+.goal-table td {
+  padding: 16px;
+  border-bottom: 1px solid #eee;
+  color: #333;
+  vertical-align: middle;
+}
+
+.goal-table tr:hover {
+  background-color: #f8f9fa;
+}
+
+.goal-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* 카드 스타일 */
+.card-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.goal-card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.goal-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.goal-card.closing-soon {
+  background-color: #fffef7;
+  border-left: 4px solid #ffd43b;
+}
+
+.card-header {
+  padding: 16px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.card-content {
+  padding: 16px;
+}
+
+.card-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.info-item .label {
+  font-size: 0.8rem;
+  color: #888;
+}
+
+.info-item .value {
+  font-size: 0.95rem;
+  color: #333;
+  font-weight: 500;
+}
+
+.card-footer {
+  padding: 12px 16px;
+  border-top: 1px solid #eee;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* 상태 뱃지 스타일 */
+.status {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.status.open {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.status.closed {
+  background-color: #ffebee;
+  color: #c62828;
+}
+
+/* 마감임박 뱃지 */
+.closing-badge {
+  display: inline-flex;
+  align-items: center;
+  background-color: #fff3e0;
+  color: #ef6c00;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  line-height: 1;
+}
+
+/* 멘티현황 버튼 */
+.mentee-button {
+  background-color: white;
+  color: #333;
+  border: 1px solid #ddd;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.mentee-button:hover {
+  border-color: #AEFF23;
+  background-color: #f8f9fa;
+}
+
+/* 페이지네이션 */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin: 24px 0;
+  padding: 16px;
+}
+
+.page-button {
+  background: white;
+  border: 1px solid #ddd;
+  color: #666;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.2s;
+  min-width: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.page-button:hover:not(:disabled) {
+  border-color: #AEFF23;
+  color: #333;
+}
+
+.page-button:disabled {
+  background-color: #f5f5f5;
+  border-color: #eee;
+  color: #bbb;
+  cursor: not-allowed;
+}
+
+.page-info {
+  font-size: 0.95rem;
+  color: #666;
+  font-weight: 500;
+  min-width: 60px;
+  text-align: center;
+}
+
+/* 스크롤바 스타일링 */
+.table-container::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+
+.table-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+  background: #ddd;
+  border-radius: 4px;
+}
+
+.table-container::-webkit-scrollbar-thumb:hover {
+  background: #ccc;
+}
+
+/* 에러 메시지 */
+.error-message {
+  color: #d63031;
+  padding: 20px;
+  text-align: center;
+  background-color: #fee8e7;
+  border-radius: 8px;
+  margin: 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* 반응형 디자인 - 모든 모바일 관련 스타일을 여기에 통합 */
+@media (max-width: 768px) {
+  .goal-list-container {
+    padding: 16px;
+  }
+
+  .desktop-view {
+    display: none !important;
+  }
+  
+  .mobile-view {
+    display: grid !important;
+  }
+  
+  .goal-card {
+    margin-bottom: 12px;
+  }
+  
+  .card-info {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  
+  .info-item {
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .info-item .label {
+    min-width: 70px;
+  }
+  
+  .status,
+  .closing-badge {
+    padding: 4px 8px;
+    font-size: 0.8rem;
+  }
+
+  .mentee-button {
+    padding: 4px 8px;
+    font-size: 0.8rem;
+  }
+
+  .pagination {
+    gap: 8px;
+  }
+
+  .page-button {
+    padding: 6px 10px;
+    min-width: 60px;
+    font-size: 0.85rem;
+  }
+
+  .page-info {
+    font-size: 0.85rem;
+    min-width: 50px;
+  }
+}
+
+.goal-id {
+  font-size: 0.8rem;
+  color: #888;
+  margin-bottom: 4px;
+  display: block;
+}
+
+.card-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+}
+
+/* 팝업 스타일 */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup {
+  background-color: white;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 16px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.popup-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #888;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+}
+
+.popup-content {
+  padding: 20px 16px;
+}
+
+.popup-content label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.popup-content input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.popup-content input:focus {
+  border-color: #AEFF23;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(174, 255, 35, 0.2);
+}
+
+.popup-footer {
+  padding: 16px;
+  border-top: 1px solid #eee;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.cancel-button, .submit-button {
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.cancel-button {
+  background-color: white;
+  border: 1px solid #ddd;
+  color: #666;
+}
+
+.cancel-button:hover {
+  background-color: #f5f5f5;
+}
+
+.submit-button {
+  background-color: #AEFF23;
+  border: 1px solid #AEFF23;
+  color: #333;
+}
+
+.submit-button:hover {
+  background-color: #9ee60e;
+} 
