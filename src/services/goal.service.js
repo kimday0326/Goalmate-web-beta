@@ -1,6 +1,5 @@
 import apiClient from './api.service'
 import { API_ENDPOINTS } from '../config/api.config'
-import { uploadFile } from './api.service'
 
 /**
  * 목표 목록을 조회합니다
@@ -32,6 +31,17 @@ export const getGoalDetail = async (goalId) => {
     return response
   } catch (error) {
     console.error('목표 상세 조회 실패:', error)
+    throw error
+  }
+}
+
+// 목표 생성
+export const createGoal = async (goalData) => {
+  try {
+    const response = await apiClient.post('/mentors/me/goals', goalData)
+    return response
+  } catch (error) {
+    console.error('목표 생성 실패:', error)
     throw error
   }
 }

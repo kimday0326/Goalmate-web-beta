@@ -67,14 +67,14 @@
 
 .comment-form textarea:focus {
   outline: none;
-  border-color: #AEFF23;
+  border-color: #aeff23;
   box-shadow: 0 0 0 2px rgba(174, 255, 35, 0.2);
 }
 
 .comment-form .submit-button {
   align-self: flex-end;
   padding: 10px 20px;
-  background-color: #AEFF23;
+  background-color: #aeff23;
   color: #333;
   border: none;
   border-radius: 8px;
@@ -182,7 +182,7 @@
   width: 40px;
   height: 40px;
   border: 3px solid #f3f3f3;
-  border-top: 3px solid #AEFF23;
+  border-top: 3px solid #aeff23;
   border-radius: 50%;
   animation: spin 1s linear infinite;
   margin-bottom: 16px;
@@ -194,8 +194,12 @@
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 /* 반응형 디자인 */
@@ -203,17 +207,17 @@
   .comment-page {
     padding: 16px;
   }
-  
+
   .comment-form .submit-button {
     width: 100%;
     align-self: center;
   }
-  
+
   .comment-header {
     flex-direction: column;
     align-items: flex-start;
   }
-  
+
   .back-button {
     margin-bottom: 16px;
   }
@@ -265,14 +269,14 @@
 }
 
 .comment-form textarea:focus {
-  border-color: #AEFF23;
+  border-color: #aeff23;
   outline: none;
   box-shadow: 0 0 0 2px rgba(174, 255, 35, 0.2);
 }
 
 .submit-button {
   align-self: flex-end;
-  background-color: #AEFF23;
+  background-color: #aeff23;
   color: #333;
   border: none;
   padding: 8px 16px;
@@ -318,7 +322,7 @@
   padding: 16px;
   border-radius: 8px;
   background-color: #f8f9fa;
-  border-left: 3px solid #AEFF23;
+  border-left: 3px solid #aeff23;
 }
 
 .comment-header {
@@ -377,7 +381,7 @@
 
 .spinner {
   border: 3px solid rgba(0, 0, 0, 0.1);
-  border-top: 3px solid #AEFF23;
+  border-top: 3px solid #aeff23;
   border-radius: 50%;
   width: 30px;
   height: 30px;
@@ -395,8 +399,14 @@
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* 페이지 헤더 */
@@ -417,16 +427,16 @@
   .comment-results h2 {
     font-size: 1.1rem;
   }
-  
-  .comment-form-container, 
+
+  .comment-form-container,
   .comments-list-container {
     padding: 16px;
   }
-  
+
   .comment-item {
     padding: 12px;
   }
-  
+
   .submit-button {
     width: 100%;
   }
@@ -552,8 +562,12 @@
 }
 
 @keyframes slideIn {
-  from { transform: translateX(100%); }
-  to { transform: translateX(0); }
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
 }
 
 .chat-header {
@@ -646,14 +660,14 @@
 }
 
 .comment-form textarea:focus {
-  border-color: #AEFF23;
+  border-color: #aeff23;
   outline: none;
   box-shadow: 0 0 0 2px rgba(174, 255, 35, 0.2);
 }
 
 .submit-button {
   align-self: flex-end;
-  background-color: #AEFF23;
+  background-color: #aeff23;
   color: #333;
   border: none;
   padding: 8px 16px;
@@ -678,7 +692,7 @@
   .comment-page-content.shifted {
     width: 50%;
   }
-  
+
   .chat-panel {
     width: 50%;
   }
@@ -688,13 +702,13 @@
   .goal-list-container.with-chat-panel {
     flex-direction: column;
   }
-  
+
   .comment-page-content.shifted {
     width: 100%;
     padding-right: 20px;
     margin-bottom: 60px; /* 모바일에서 하단에 여백 추가 */
   }
-  
+
   .chat-panel {
     width: 100%;
     position: fixed; /* 모바일에서는 fixed로 전체화면 처리 */
@@ -830,7 +844,7 @@
   .comment-list-section.with-chat {
     flex: 0.5;
   }
-  
+
   .chat-section {
     flex: 0.5;
   }
@@ -842,17 +856,17 @@
     height: auto;
     padding: 0 10px;
   }
-  
+
   .comment-list-section {
     width: 100%;
     overflow: visible;
     padding: 10px;
   }
-  
+
   .comment-list-section.with-chat {
     display: none;
   }
-  
+
   .chat-section {
     position: fixed;
     top: 0;
@@ -866,8 +880,14 @@
 
 /* 기타 애니메이션 */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* 검색 헤더 스타일 수정 */
@@ -940,11 +960,11 @@
     flex-direction: column;
     align-items: flex-start;
   }
-  
+
   .title-section {
     margin-bottom: 15px;
   }
-  
+
   .search-section {
     width: 100%;
     flex: auto;
@@ -1005,4 +1025,4 @@
   color: #1a237e;
   transform: translateY(-1px);
   box-shadow: 0 2px 5px rgba(63, 81, 181, 0.2);
-} 
+}

@@ -60,7 +60,7 @@
 
 .left-section {
   flex: 1;
-  background-color: #AEFF23;
+  background-color: #aeff23;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -138,7 +138,7 @@ input[type="password"] {
 input[type="text"]:focus,
 input[type="password"]:focus {
   outline: none;
-  border-color: #AEFF23;
+  border-color: #aeff23;
   box-shadow: 0 0 0 2px rgba(174, 255, 35, 0.2);
 }
 
@@ -152,7 +152,7 @@ input[type="password"]:focus {
 .admin-checkbox input[type="checkbox"] {
   width: clamp(16px, 2vw, 18px);
   height: clamp(16px, 2vw, 18px);
-  accent-color: #AEFF23;
+  accent-color: #aeff23;
 }
 
 .admin-checkbox label {
@@ -161,7 +161,7 @@ input[type="password"]:focus {
 }
 
 button {
-  background-color: #AEFF23;
+  background-color: #aeff23;
   color: black;
   border: none;
   padding: clamp(0.8rem, 1.5vw, 1rem);
@@ -187,8 +187,9 @@ button:active {
   .login-page {
     flex-direction: row;
   }
-  
-  .left-section, .right-section {
+
+  .left-section,
+  .right-section {
     flex: 1;
   }
 }
@@ -197,12 +198,12 @@ button:active {
   .login-page {
     flex-direction: column;
   }
-  
+
   .left-section {
     flex: 0 0 auto;
     padding: 2rem 1rem;
   }
-  
+
   .right-section {
     flex: 1;
   }
@@ -212,11 +213,11 @@ button:active {
   .main-logo {
     width: min(120px, 20vw);
   }
-  
+
   .left-section h1 {
     font-size: clamp(1.5rem, 4vw, 2.5rem);
   }
-  
+
   .slogan {
     font-size: clamp(0.9rem, 1.5vw, 1rem);
   }
@@ -277,14 +278,14 @@ button:active {
 }
 
 .form-control:focus {
-  border-color: #AEFF23;
+  border-color: #aeff23;
   outline: none;
   box-shadow: 0 0 0 2px rgba(174, 255, 35, 0.2);
 }
 
 .login-button {
   margin-top: 8px;
-  background-color: #AEFF23;
+  background-color: #aeff23;
   color: #333;
   border: none;
   border-radius: 8px;

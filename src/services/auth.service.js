@@ -13,6 +13,7 @@ export const login = async (credentials, isAdmin) => {
     if (response.data?.access_token) {
       localStorage.setItem('access_token', response.data.access_token);
       localStorage.setItem('refresh_token', response.data.refresh_token);
+      localStorage.setItem('isAdmin', isAdmin);
     }
     
     return response;

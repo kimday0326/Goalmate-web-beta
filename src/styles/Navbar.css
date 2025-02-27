@@ -21,7 +21,7 @@
 .nav-left {
   display: flex;
   align-items: center;
-  gap: 40px;  /* 로고와 메뉴 사이 간격 */
+  gap: 40px; /* 로고와 메뉴 사이 간격 */
 }
 
 .nav-brand {
@@ -69,7 +69,7 @@
 
 .nav-link.active {
   color: black;
-  background-color: #AEFF23;
+  background-color: #aeff23;
 }
 
 .user-menu {
@@ -92,7 +92,7 @@
 }
 
 .user-button:hover {
-  border-color: #AEFF23;
+  border-color: #aeff23;
   color: #333;
 }
 
@@ -164,4 +164,4 @@
     height: 28px;
     margin-right: 0;
   }
-} 
+}

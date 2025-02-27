@@ -19,29 +19,6 @@
   border-bottom: 1px solid #ddd;
   overflow-x: auto;
 }
-
-.tab-button {
-  padding: 12px 20px;
-  background: none;
-  border: none;
-  border-bottom: 3px solid transparent;
-  color: #666;
-  font-size: 1rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s;
-  white-space: nowrap;
-}
-
-.tab-button:hover {
-  color: #333;
-}
-
-.tab-button.active {
-  color: #333;
-  border-bottom-color: #AEFF23;
-}
-
 .goal-form {
   background: white;
   border-radius: 16px;
@@ -83,7 +60,7 @@
 
 .form-group input:focus,
 .form-group textarea:focus {
-  border-color: #AEFF23;
+  border-color: #aeff23;
   outline: none;
   box-shadow: 0 0 0 2px rgba(174, 255, 35, 0.2);
 }
@@ -262,8 +239,8 @@
 }
 
 .submit-button {
-  background-color: #AEFF23;
-  border: 1px solid #AEFF23;
+  background-color: #aeff23;
+  border: 1px solid #aeff23;
   color: #333;
 }
 
@@ -277,8 +254,14 @@
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* 반응형 디자인 */
@@ -286,25 +269,25 @@
   .goal-form-container {
     padding: 16px;
   }
-  
+
   .form-row {
     grid-template-columns: 1fr;
     gap: 12px;
   }
-  
+
   .form-actions {
     flex-direction: column;
   }
-  
+
   .cancel-button,
   .submit-button {
     width: 100%;
   }
-  
+
   .image-preview-container {
     grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
   }
-  
+
   .image-preview img {
     height: 120px;
   }
@@ -335,7 +318,7 @@
   width: 50px;
   height: 50px;
   border: 5px solid #f3f3f3;
-  border-top: 5px solid #AEFF23;
+  border-top: 5px solid #aeff23;
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
@@ -347,8 +330,12 @@
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 /* 목표 생성 페이지 레이아웃 */
@@ -363,8 +350,9 @@
 
 .goal-create-container h1 {
   margin-bottom: 24px;
-  font-size: 1.5rem;
   color: #333;
+  font-size: 1.75rem;
+  font-weight: 600;
 }
 
 /* 탭 네비게이션 */
@@ -392,10 +380,33 @@
 
 .form-tab.active {
   color: #333;
-  border-bottom-color: #AEFF23;
+  border-bottom-color: #aeff23;
 }
 
-/* 탭 컨텐츠 - 중요! 이 부분이 없어서 탭이 작동하지 않음 */
+.tab-button {
+  padding: 12px 20px;
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  color: #666;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+  margin-right: 4px;
+}
+
+.tab-button:hover {
+  color: #333;
+}
+
+.tab-button.active {
+  color: #333;
+  border-bottom-color: #aeff23;
+  background-color: #f5fbef;
+}
+
 .tab-content {
   display: none;
   padding: 20px;
@@ -404,6 +415,10 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   overflow-y: auto;
   min-height: 400px; /* 최소 높이 지정 */
+}
+
+.tab-content h2 {
+  margin-bottom: 20px;
 }
 
 .tab-content.active {
@@ -440,7 +455,7 @@
 }
 
 .form-control:focus {
-  border-color: #AEFF23;
+  border-color: #aeff23;
   outline: none;
   box-shadow: 0 0 0 2px rgba(174, 255, 35, 0.2);
 }
@@ -593,7 +608,7 @@ textarea.form-control {
 }
 
 .submit-button {
-  background-color: #AEFF23;
+  background-color: #aeff23;
   color: #333;
   border: none;
   border-radius: 6px;
@@ -616,8 +631,14 @@ textarea.form-control {
 
 /* 애니메이션 */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* 업로드 오버레이 */
@@ -660,7 +681,7 @@ textarea.form-control {
 
 .progress-bar {
   height: 100%;
-  background-color: #AEFF23;
+  background-color: #aeff23;
   border-radius: 5px;
   transition: width 0.3s ease;
 }
@@ -677,7 +698,7 @@ textarea.form-control {
 }
 
 .upload-button {
-  background-color: #AEFF23;
+  background-color: #aeff23;
   color: #333;
   border: none;
   border-radius: 6px;
@@ -704,73 +725,3 @@ textarea.form-control {
   font-size: 0.9rem;
   color: #666;
 }
-
-/* 파일 업로드 관련 스타일 */
-.custom-file-upload {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 10px;
-}
-
-.hidden-file-input {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  border: 0;
-}
-
-.file-select-button {
-  background-color: #f0f4fc;
-  color: #3f51b5;
-  border: none;
-  border-radius: 6px;
-  padding: 10px 16px;
-  font-size: 0.95rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.file-select-button:hover:not(:disabled) {
-  background-color: #e3f2fd;
-}
-
-.file-select-button:disabled {
-  background-color: #f5f5f5;
-  color: #bdbdbd;
-  cursor: not-allowed;
-}
-
-.selected-file-name {
-  flex: 1;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  color: #333;
-}
-
-.no-file-selected {
-  flex: 1;
-  color: #aaa;
-  font-style: italic;
-}
-
-/* 탭 버튼을 더 눈에 띄게 */
-.tab-button {
-  padding: 12px 20px;
-  font-size: 1.05rem;
-  font-weight: 500;
-  border-bottom: 3px solid transparent;
-  margin-right: 4px;
-}
-
-.tab-button.active {
-  background-color: #f5fbef;
-  border-bottom-color: #AEFF23;
-  color: #333;
-} 

@@ -193,7 +193,7 @@
 }
 
 .mentee-button:hover {
-  border-color: #AEFF23;
+  border-color: #aeff23;
   background-color: #f8f9fa;
 }
 
@@ -224,7 +224,7 @@
 }
 
 .page-button:hover:not(:disabled) {
-  border-color: #AEFF23;
+  border-color: #aeff23;
   color: #333;
 }
 
@@ -283,30 +283,30 @@
   .desktop-view {
     display: none !important;
   }
-  
+
   .mobile-view {
     display: grid !important;
   }
-  
+
   .goal-card {
     margin-bottom: 12px;
   }
-  
+
   .card-info {
     grid-template-columns: 1fr;
     gap: 8px;
   }
-  
+
   .info-item {
     flex-direction: row;
     align-items: center;
     gap: 8px;
   }
-  
+
   .info-item .label {
     min-width: 70px;
   }
-  
+
   .status,
   .closing-badge {
     padding: 4px 8px;
@@ -415,7 +415,7 @@
 }
 
 .popup-content input:focus {
-  border-color: #AEFF23;
+  border-color: #aeff23;
   outline: none;
   box-shadow: 0 0 0 2px rgba(174, 255, 35, 0.2);
 }
@@ -428,7 +428,8 @@
   gap: 12px;
 }
 
-.cancel-button, .submit-button {
+.cancel-button,
+.submit-button {
   padding: 8px 16px;
   border-radius: 6px;
   font-size: 0.9rem;
@@ -448,11 +449,11 @@
 }
 
 .submit-button {
-  background-color: #AEFF23;
-  border: 1px solid #AEFF23;
+  background-color: #aeff23;
+  border: 1px solid #aeff23;
   color: #333;
 }
 
 .submit-button:hover {
   background-color: #9ee60e;
-} 
+}

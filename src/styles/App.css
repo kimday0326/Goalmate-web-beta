@@ -3,6 +3,6 @@
 }
 
 .content-with-navbar {
-  padding-top: 60px;  /* navbar 높이만큼 상단 패딩 */
-  min-height: calc(100vh - 60px);  /* navbar 높이를 제외한 전체 높이 */
-} 
+  padding-top: 60px; /* navbar 높이만큼 상단 패딩 */
+  min-height: calc(100vh - 60px); /* navbar 높이를 제외한 전체 높이 */
+}
