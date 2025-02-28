@@ -1,7 +1,8 @@
 import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import "../styles/GoalForm.css";
 import { createGoal } from "../services/goal.service";
+import { uploadImages } from "../services/upload.service";
+import "../styles/GoalForm.css";
 
 function GoalCreatePage() {
   const navigate = useNavigate();
@@ -37,8 +38,13 @@ function GoalCreatePage() {
   const [thumbnailImages, setThumbnailImages] = useState([]);
   const [contentImages, setContentImages] = useState([]);
 
-  // 파일 선택을 위한 ref (썸네일)
+  // 이미지 업로드 로딩 상태
+  const [uploadingThumbnail, setUploadingThumbnail] = useState(false);
+  const [uploadingContent, setUploadingContent] = useState(false);
+
+  // 파일 선택을 위한 ref
   const thumbnailInputRef = useRef(null);
+  const contentInputRef = useRef(null);
 
   // 기본 정보 변경 핸들러
   const handleBasicInfoChange = (e) => {
@@ -108,7 +114,9 @@ function GoalCreatePage() {
   const handleTodoChange = (index, field, value) => {
     const updated = [...todoList];
     updated[index][field] =
-      field === "estimated_minutes" ? parseInt(value) || 0 : value;
+      field === "estimated_minutes" || field === "dayNumber"
+        ? parseInt(value) || 0
+        : value;
     setTodoList(updated);
   };
 
@@ -130,35 +138,65 @@ function GoalCreatePage() {
     if (todoList.length > 1) {
       const updated = todoList
         .filter((_, i) => i !== index)
-        .map((item, i) => ({ ...item }));
+        .map((item, i) => ({ ...item, dayNumber: i + 1 }));
       setTodoList(updated);
     }
   };
 
-  // 썸네일 이미지 파일 선택 후 핸들러
-  const handleThumbnailFileChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const newImage = {
-        sequence: thumbnailImages.length + 1,
-        imageUrl: URL.createObjectURL(file),
-        file, // 실제 파일 데이터를 저장할 수 있음
-      };
-      setThumbnailImages((prev) => [...prev, newImage]);
+  // 썸네일 이미지 업로드 핸들러
+  const handleThumbnailUpload = async (e) => {
+    const files = e.target.files;
+    if (!files || files.length === 0) return;
+
+    setUploadingThumbnail(true);
+
+    try {
+      const response = await uploadImages(files);
+
+      if (response.status === "SUCCESS") {
+        const newImages = response.data.map((url, index) => ({
+          sequence: thumbnailImages.length + index + 1,
+          imageUrl: url,
+        }));
+
+        setThumbnailImages([...thumbnailImages, ...newImages]);
+      } else {
+        alert("썸네일 이미지 업로드에 실패했습니다.");
+      }
+    } catch (error) {
+      console.error("썸네일 업로드 오류:", error);
+      alert("썸네일 이미지 업로드에 실패했습니다.");
+    } finally {
+      setUploadingThumbnail(false);
     }
   };
 
-  // 이미지 추가 버튼 클릭 시 파일 선택 다이얼로그 트리거
-  const handleAddThumbnailImage = () => {
-    thumbnailInputRef.current?.click();
-  };
+  // 콘텐츠 이미지 업로드 핸들러
+  const handleContentUpload = async (e) => {
+    const files = e.target.files;
+    if (!files || files.length === 0) return;
 
-  // 콘텐츠 이미지 추가 핸들러 (필요시 동일하게 파일 입력 구현 가능)
-  const handleAddContentImage = () => {
-    setContentImages([
-      ...contentImages,
-      { sequence: contentImages.length + 1, imageUrl: "" },
-    ]);
+    setUploadingContent(true);
+
+    try {
+      const response = await uploadImages(files);
+
+      if (response.status === "SUCCESS") {
+        const newImages = response.data.map((url, index) => ({
+          sequence: contentImages.length + index + 1,
+          imageUrl: url,
+        }));
+
+        setContentImages([...contentImages, ...newImages]);
+      } else {
+        alert("콘텐츠 이미지 업로드에 실패했습니다.");
+      }
+    } catch (error) {
+      console.error("콘텐츠 업로드 오류:", error);
+      alert("콘텐츠 이미지 업로드에 실패했습니다.");
+    } finally {
+      setUploadingContent(false);
+    }
   };
 
   // 썸네일 이미지 삭제 핸들러
@@ -181,6 +219,12 @@ function GoalCreatePage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // 필수 필드 검증
+    if (!basicInfo.title || !basicInfo.topic || basicInfo.period <= 0) {
+      alert("필수 정보를 모두 입력해주세요.");
+      return;
+    }
+
     setLoading(true);
 
     const goalData = {
@@ -198,13 +242,19 @@ function GoalCreatePage() {
       if (isAdmin) {
         // mentor_id 모달 띄워서 입력받기
         const mentorId = prompt("[관리자] 멘토 ID를 입력해주세요.");
-        goalData.mentor_id = mentorId;
+        if (mentorId) {
+          goalData.mentor_id = parseInt(mentorId);
+        }
       }
-      const response = await createGoal(goalData);
-      console.log("목표를 생성합니다:", goalData);
 
-      alert("목표가 성공적으로 생성되었습니다!");
-      navigate("/goals");
+      const response = await createGoal(goalData);
+
+      if (response.status === "SUCCESS") {
+        alert("목표가 성공적으로 생성되었습니다!");
+        navigate("/goals");
+      } else {
+        alert(response.message || "목표 생성에 실패했습니다.");
+      }
     } catch (error) {
       console.error("목표 생성 실패:", error);
       alert("목표 생성에 실패했습니다.");
@@ -313,7 +363,7 @@ function GoalCreatePage() {
 
           <div className="form-group">
             <label htmlFor="daily_duration" className="required">
-              평균 소요시간 (분)
+              일평균 소요 시간 (시간)
             </label>
             <input
               type="number"
@@ -529,41 +579,97 @@ function GoalCreatePage() {
 
         {/* 이미지 탭 */}
         <div className={`tab-content ${activeTab === "image" ? "active" : ""}`}>
-          <h2>썸네일 이미지</h2>
-          {thumbnailImages.map((item, index) => (
-            <div className="image-item" key={`thumbnail-${index}`}>
-              <span>이미지 {item.sequence}</span>
-              {item.imageUrl && (
-                <img
-                  src={item.imageUrl}
-                  alt={`썸네일 ${item.sequence}`}
-                  style={{ width: "100px", height: "auto", marginLeft: "10px" }}
-                />
-              )}
-              <button
-                type="button"
-                className="remove-button"
-                onClick={() => handleRemoveThumbnailImage(index)}
-              >
-                삭제
-              </button>
-            </div>
-          ))}
-          {/* 숨김 파일 input */}
-          <input
-            type="file"
-            accept="image/*"
-            style={{ display: "none" }}
-            ref={thumbnailInputRef}
-            onChange={handleThumbnailFileChange}
-          />
-          <button
-            type="button"
-            className="add-button"
-            onClick={handleAddThumbnailImage}
-          >
-            이미지 추가
-          </button>
+          <h2>이미지 업로드</h2>
+
+          {/* 썸네일 이미지 섹션 */}
+          <div className="image-section">
+            <h3>썸네일 이미지</h3>
+
+            {thumbnailImages.map((image, index) => (
+              <div className="image-item" key={`thumbnail-${index}`}>
+                <div className="image-preview">
+                  <img
+                    src={image.imageUrl}
+                    alt={`썸네일 ${index + 1}`}
+                    className="preview-image"
+                  />
+                </div>
+                <div className="image-info">
+                  <span>썸네일 {index + 1}</span>
+                  <button
+                    type="button"
+                    className="remove-button"
+                    onClick={() => handleRemoveThumbnailImage(index)}
+                  >
+                    삭제
+                  </button>
+                </div>
+              </div>
+            ))}
+
+            <input
+              type="file"
+              accept="image/*"
+              style={{ display: "none" }}
+              ref={thumbnailInputRef}
+              onChange={handleThumbnailUpload}
+              multiple
+            />
+
+            <button
+              type="button"
+              className="add-button"
+              onClick={() => thumbnailInputRef.current?.click()}
+              disabled={uploadingThumbnail}
+            >
+              {uploadingThumbnail ? "업로드 중..." : "썸네일 이미지 추가"}
+            </button>
+          </div>
+
+          {/* 콘텐츠 이미지 섹션 */}
+          <div className="image-section">
+            <h3>콘텐츠 이미지</h3>
+
+            {contentImages.map((image, index) => (
+              <div className="image-item" key={`content-${index}`}>
+                <div className="image-preview">
+                  <img
+                    src={image.imageUrl}
+                    alt={`콘텐츠 ${index + 1}`}
+                    className="preview-image"
+                  />
+                </div>
+                <div className="image-info">
+                  <span>콘텐츠 이미지 {index + 1}</span>
+                  <button
+                    type="button"
+                    className="remove-button"
+                    onClick={() => handleRemoveContentImage(index)}
+                  >
+                    삭제
+                  </button>
+                </div>
+              </div>
+            ))}
+
+            <input
+              type="file"
+              accept="image/*"
+              style={{ display: "none" }}
+              ref={contentInputRef}
+              onChange={handleContentUpload}
+              multiple
+            />
+
+            <button
+              type="button"
+              className="add-button"
+              onClick={() => contentInputRef.current?.click()}
+              disabled={uploadingContent}
+            >
+              {uploadingContent ? "업로드 중..." : "콘텐츠 이미지 추가"}
+            </button>
+          </div>
         </div>
 
         <div className="form-actions">
