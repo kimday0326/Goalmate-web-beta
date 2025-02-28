@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
+import { getComments, createComment } from "../services/comment.service";
 import "../styles/ChatRoom.css";
 
 function ChatRoom({ room, onClose }) {
@@ -56,16 +57,7 @@ function ChatRoom({ room, onClose }) {
     setLoading(true);
 
     try {
-      const response = await fetch(
-        `http://localhost:8080/comment-rooms/${roomId}/comments?page=${pageNum}&size=20`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-          },
-        }
-      );
-
-      const data = await response.json();
+      const data = await getComments(roomId, pageNum);
 
       if (data.status === "SUCCESS") {
         // 시간순으로 정렬 (오래된 순)
@@ -116,19 +108,7 @@ function ChatRoom({ room, onClose }) {
     if (!newComment.trim() || !room) return;
 
     try {
-      const response = await fetch(
-        `http://localhost:8080/comment-rooms/${room.commentRoomId}/comments`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-          },
-          body: JSON.stringify({ comment: newComment }),
-        }
-      );
-
-      const data = await response.json();
+      const data = await createComment(room.commentRoomId, newComment);
 
       if (data.status === "SUCCESS") {
         setNewComment("");

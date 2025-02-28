@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import ChatRoom from "../components/ChatRoom";
+import { getCommentRooms } from "../services/comment.service";
 import "../styles/GoalList.css";
 import "../styles/CommentPage.css";
 
@@ -50,16 +51,7 @@ function CommentPage() {
     setError(null);
 
     try {
-      const response = await fetch(
-        `http://localhost:8080/api/v2/admin/participations/${participationId}/comment-rooms?page=${page}&size=10`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-          },
-        }
-      );
-
-      const data = await response.json();
+      const data = await getCommentRooms(participationId, page);
 
       if (data.status === "SUCCESS") {
         setCommentRooms(data.data.content || []);

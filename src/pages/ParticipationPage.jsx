@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { getParticipations } from "../services/participation.service";
 import "../styles/GoalList.css";
 import "../styles/ParticipationPage.css";
 
@@ -17,12 +18,30 @@ function ParticipationPage() {
   const [pageInfo, setPageInfo] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
 
-  // 초기 goalId가 있으면 자동으로 검색 실행
   useEffect(() => {
     if (initialGoalId) {
       handleSearch();
     }
   }, []);
+
+  const fetchParticipations = async (page) => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      const { participations: participationData, pageInfo: pageInfoData } =
+        await getParticipations(goalId, page);
+
+      setParticipations(participationData);
+      setPageInfo(pageInfoData);
+      setCurrentPage(page);
+    } catch (error) {
+      console.error("참여 목록 불러오기 오류:", error);
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleSearch = async () => {
     if (!goalId.trim()) {
@@ -32,45 +51,6 @@ function ParticipationPage() {
 
     fetchParticipations(1);
     setHasSearched(true);
-  };
-
-  const fetchParticipations = async (page) => {
-    setLoading(true);
-    setError(null);
-
-    try {
-      const response = await fetch(
-        `http://localhost:8080/api/v2/admin/goals/${goalId}/participations?page=${page}&size=10`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-          },
-        }
-      );
-
-      const data = await response.json();
-
-      if (data.status === "SUCCESS") {
-        setParticipations(data.data.content || []);
-        setPageInfo({
-          totalPages: data.data.totalPages,
-          currentPage: data.data.currentPage,
-          hasNext: data.data.hasNext,
-          hasPrev: data.data.hasPrev,
-          nextPage: data.data.nextPage,
-          prevPage: data.data.prevPage,
-        });
-
-        setCurrentPage(page);
-      } else {
-        setError(data.message || "참여 목록을 불러오는데 실패했습니다.");
-      }
-    } catch (error) {
-      console.error("참여 목록 불러오기 오류:", error);
-      setError("참여 목록을 불러오는데 실패했습니다.");
-    } finally {
-      setLoading(false);
-    }
   };
 
   const handleGoalIdChange = (e) => {
