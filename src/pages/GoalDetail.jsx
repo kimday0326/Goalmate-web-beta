@@ -41,12 +41,6 @@ function GoalDetail() {
   return (
     <div className="goal-detail-container">
       <div className="detail-header">
-        <div className="header-buttons">
-          <button className="back-button" onClick={() => navigate("/goals")}>
-            <span className="icon">←</span>
-            목록으로
-          </button>
-        </div>
         <h1>{goal.title}</h1>
       </div>
 

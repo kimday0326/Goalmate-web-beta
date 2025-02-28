@@ -170,7 +170,6 @@ function CommentPage() {
                     <th>시작일</th>
                     <th>종료일</th>
                     <th>새 코멘트</th>
-                    <th>액션</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -183,6 +182,7 @@ function CommentPage() {
                           ? "selected"
                           : ""
                       }`}
+                      onClick={() => selectCommentRoom(room)}
                     >
                       <td>{room.commentRoomId}</td>
                       <td>{room.menteeName}</td>
@@ -198,14 +198,6 @@ function CommentPage() {
                         ) : (
                           <span className="no-new-comments">0</span>
                         )}
-                      </td>
-                      <td>
-                        <button
-                          className="view-button"
-                          onClick={() => selectCommentRoom(room)}
-                        >
-                          코멘트 보기
-                        </button>
                       </td>
                     </tr>
                   ))}
