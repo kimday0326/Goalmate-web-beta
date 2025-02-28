@@ -38,7 +38,7 @@ export const uploadFile = async (file, onProgress) => {
   formData.append("file", file);
 
   try {
-    const response = await fetch("http://localhost:8080/api/v2/admin/uploads", {
+    const response = await fetch(`${API_BASE_URL}/api/v2/admin/uploads`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("access_token")}`,
