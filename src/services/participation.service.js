@@ -1,6 +1,5 @@
 import axios from "axios";
-
-const API_URL = "http://localhost:8080";
+import { API_BASE_URL } from "../config/api.config";
 
 /**
  * 특정 날짜의 참여 목표 상세 정보를 가져옵니다.
@@ -16,7 +15,7 @@ export const getParticipationDetail = async (goalId, date) => {
 
   try {
     const response = await axios.get(
-      `${API_URL}/mentees/my/goals/${goalId}?date=${date}`,
+      `${API_BASE_URL}/mentees/my/goals/${goalId}?date=${date}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -29,6 +28,48 @@ export const getParticipationDetail = async (goalId, date) => {
     } else {
       throw new Error(
         response.data.message || "데이터를 불러오는데 실패했습니다."
+      );
+    }
+  } catch (error) {
+    if (error.response?.status === 401) {
+      throw new Error("인증이 만료되었습니다. 다시 로그인해주세요.");
+    }
+    throw error;
+  }
+};
+
+/**
+ * 특정 목표의 참여 목록을 가져옵니다.
+ * @param {number} goalId - 목표 ID
+ * @param {number} page - 페이지 번호
+ * @param {number} size - 페이지 크기 (기본값: 10)
+ * @returns {Promise<{participations: Array, pageInfo: Object}>} - 참여 목록과 페이지 정보
+ */
+export const getParticipations = async (goalId, page = 1, size = 10) => {
+  const token = localStorage.getItem("access_token");
+  if (!token) {
+    throw new Error("인증 토큰이 없습니다. 다시 로그인해주세요.");
+  }
+
+  try {
+    const response = await axios.get(
+      `${API_BASE_URL}/api/v2/admin/goals/${goalId}/participations?page=${page}&size=${size}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (response.data.status === "SUCCESS") {
+      const { content, ...pageInfo } = response.data.data;
+      return {
+        participations: content,
+        pageInfo: pageInfo,
+      };
+    } else {
+      throw new Error(
+        response.data.message || "참여 목록을 불러오는데 실패했습니다."
       );
     }
   } catch (error) {
