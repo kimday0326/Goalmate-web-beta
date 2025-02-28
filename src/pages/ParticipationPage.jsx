@@ -69,6 +69,10 @@ function ParticipationPage() {
     navigate(`/comments?participationId=${participationId}`);
   };
 
+  const viewParticipationDetail = (participationId) => {
+    navigate(`/participations/${participationId}`);
+  };
+
   const getStatusClass = (status) => {
     switch (status) {
       case "IN_PROGRESS":
@@ -174,7 +178,12 @@ function ParticipationPage() {
                 </thead>
                 <tbody>
                   {participations.map((participation) => (
-                    <tr key={participation.id} className="participation-row">
+                    <tr
+                      key={participation.id}
+                      className="participation-row"
+                      onClick={() => viewParticipationDetail(participation.id)}
+                      style={{ cursor: "pointer" }}
+                    >
                       <td>{participation.id}</td>
                       <td>{participation.menteeName}</td>
                       <td>{participation.mentorName}</td>
@@ -227,7 +236,7 @@ function ParticipationPage() {
                           </span>
                         </div>
                       </td>
-                      <td>
+                      <td onClick={(e) => e.stopPropagation()}>
                         <button
                           className="view-button"
                           onClick={() => viewCommentRoom(participation.id)}

@@ -4,6 +4,7 @@ import GoalList from "./pages/GoalList";
 import GoalDetail from "./pages/GoalDetail";
 import Navbar from "./components/Navbar";
 import ParticipationPage from "./pages/ParticipationPage";
+import ParticipationDetailPage from "./pages/ParticipationDetailPage";
 import GoalCreatePage from "./pages/GoalCreatePage";
 import CommentPage from "./pages/CommentPage";
 import "./styles/App.css";
@@ -39,6 +40,10 @@ function App() {
                     <Route
                       path="/participations"
                       element={<ParticipationPage />}
+                    />
+                    <Route
+                      path="/participations/:id"
+                      element={<ParticipationDetailPage />}
                     />
                     <Route
                       path="*"
