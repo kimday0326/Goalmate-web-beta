@@ -17,6 +17,10 @@ function ParticipationPage() {
   const [error, setError] = useState(null);
   const [pageInfo, setPageInfo] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
+  const [sortConfig, setSortConfig] = useState({
+    key: "id",
+    direction: "ascending",
+  });
 
   useEffect(() => {
     if (initialGoalId) {
@@ -103,6 +107,54 @@ function ParticipationPage() {
     }
   };
 
+  const requestSort = (key) => {
+    let direction = "ascending";
+    if (sortConfig.key === key && sortConfig.direction === "ascending") {
+      direction = "descending";
+    }
+    setSortConfig({ key, direction });
+  };
+
+  const sortedParticipations = React.useMemo(() => {
+    let sortableParticipations = [...participations];
+    if (sortConfig.key) {
+      sortableParticipations.sort((a, b) => {
+        let aValue = a[sortConfig.key];
+        let bValue = b[sortConfig.key];
+
+        if (
+          sortConfig.key === "totalCompletedCount" ||
+          sortConfig.key === "totalTodoCount"
+        ) {
+          const aPercent =
+            a.totalTodoCount > 0
+              ? (a.totalCompletedCount / a.totalTodoCount) * 100
+              : 0;
+          const bPercent =
+            b.totalTodoCount > 0
+              ? (b.totalCompletedCount / b.totalTodoCount) * 100
+              : 0;
+          aValue = aPercent;
+          bValue = bPercent;
+        }
+
+        if (aValue < bValue) {
+          return sortConfig.direction === "ascending" ? -1 : 1;
+        }
+        if (aValue > bValue) {
+          return sortConfig.direction === "ascending" ? 1 : -1;
+        }
+        return 0;
+      });
+    }
+    return sortableParticipations;
+  }, [participations, sortConfig]);
+
+  const getSortDirectionIcon = (key) => {
+    if (sortConfig.key !== key) return "";
+    return sortConfig.direction === "ascending" ? "↑" : "↓";
+  };
+
   return (
     <div className="participation-page-container">
       <div className="participation-list-section">
@@ -164,20 +216,65 @@ function ParticipationPage() {
               <table className="goal-table">
                 <thead>
                   <tr>
-                    <th>참여 ID</th>
-                    <th>멘티</th>
-                    <th>멘토</th>
-                    <th>목표 제목</th>
-                    <th>시작일</th>
-                    <th>종료일</th>
-                    <th>진행 상태</th>
-                    <th>오늘 할일</th>
-                    <th>전체 진행률</th>
+                    <th
+                      onClick={() => requestSort("id")}
+                      data-icon={getSortDirectionIcon("id")}
+                    >
+                      참여 ID
+                    </th>
+                    <th
+                      onClick={() => requestSort("menteeName")}
+                      data-icon={getSortDirectionIcon("menteeName")}
+                    >
+                      멘티
+                    </th>
+                    <th
+                      onClick={() => requestSort("mentorName")}
+                      data-icon={getSortDirectionIcon("mentorName")}
+                    >
+                      멘토
+                    </th>
+                    <th
+                      onClick={() => requestSort("title")}
+                      data-icon={getSortDirectionIcon("title")}
+                    >
+                      목표 제목
+                    </th>
+                    <th
+                      onClick={() => requestSort("startDate")}
+                      data-icon={getSortDirectionIcon("startDate")}
+                    >
+                      시작일
+                    </th>
+                    <th
+                      onClick={() => requestSort("endDate")}
+                      data-icon={getSortDirectionIcon("endDate")}
+                    >
+                      종료일
+                    </th>
+                    <th
+                      onClick={() => requestSort("participationStatus")}
+                      data-icon={getSortDirectionIcon("participationStatus")}
+                    >
+                      진행 상태
+                    </th>
+                    <th
+                      onClick={() => requestSort("todayCompletedCount")}
+                      data-icon={getSortDirectionIcon("todayCompletedCount")}
+                    >
+                      오늘 할일
+                    </th>
+                    <th
+                      onClick={() => requestSort("totalCompletedCount")}
+                      data-icon={getSortDirectionIcon("totalCompletedCount")}
+                    >
+                      전체 진행률
+                    </th>
                     <th>액션</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {participations.map((participation) => (
+                  {sortedParticipations.map((participation) => (
                     <tr
                       key={participation.id}
                       className="participation-row"
