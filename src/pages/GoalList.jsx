@@ -163,7 +163,7 @@ function GoalList() {
                     onClick={() => handleGoalClick(goal.id)}
                     style={{ cursor: "pointer" }}
                   >
-                    {goal.daily_duration}분
+                    {goal.daily_duration}시간
                   </td>
                   <td
                     onClick={() => handleGoalClick(goal.id)}
@@ -250,7 +250,7 @@ function GoalList() {
                   </div>
                   <div className="info-item">
                     <span className="label">일일시간:</span>
-                    <span className="value">{goal.daily_duration}분</span>
+                    <span className="value">{goal.daily_duration}시간</span>
                   </div>
                   <div className="info-item">
                     <span className="label">참여자:</span>

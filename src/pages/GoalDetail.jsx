@@ -70,7 +70,7 @@ function GoalDetail() {
           <span>기간:</span> {goal.period}일
         </div>
         <div className="info-row">
-          <span>일일 학습 시간:</span> {goal.daily_duration}분
+          <span>일평균 소요 시간:</span> {goal.daily_duration}시간
         </div>
         <div className="info-row">
           <span>참여자:</span> {goal.current_participants}/

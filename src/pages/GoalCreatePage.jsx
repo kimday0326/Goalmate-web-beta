@@ -14,7 +14,7 @@ function GoalCreatePage() {
     title: "",
     topic: "",
     period: 30,
-    daily_duration: 60,
+    daily_duration: 3,
     participants_limit: 5,
     description: "",
   });
@@ -31,7 +31,7 @@ function GoalCreatePage() {
 
   // 할 일 목록 상태
   const [todoList, setTodoList] = useState([
-    { dayNumber: 1, estimated_minutes: 30, description: "", mentor_tip: "" },
+    { day_number: 1, estimated_minutes: 30, description: "", mentor_tip: "" },
   ]);
 
   // 이미지 상태
@@ -114,7 +114,7 @@ function GoalCreatePage() {
   const handleTodoChange = (index, field, value) => {
     const updated = [...todoList];
     updated[index][field] =
-      field === "estimated_minutes" || field === "dayNumber"
+      field === "estimated_minutes" || field === "day_number"
         ? parseInt(value) || 0
         : value;
     setTodoList(updated);
@@ -125,7 +125,7 @@ function GoalCreatePage() {
     setTodoList([
       ...todoList,
       {
-        dayNumber: todoList.length + 1,
+        day_number: todoList.length + 1,
         estimated_minutes: 30,
         description: "",
         mentor_tip: "",
@@ -138,7 +138,7 @@ function GoalCreatePage() {
     if (todoList.length > 1) {
       const updated = todoList
         .filter((_, i) => i !== index)
-        .map((item, i) => ({ ...item, dayNumber: i + 1 }));
+        .map((item, i) => ({ ...item, day_number: i + 1 }));
       setTodoList(updated);
     }
   };
@@ -371,7 +371,7 @@ function GoalCreatePage() {
               name="daily_duration"
               value={basicInfo.daily_duration}
               onChange={handleBasicInfoChange}
-              min="10"
+              min="1"
               max="300"
               required
               className="form-control"
@@ -518,9 +518,9 @@ function GoalCreatePage() {
                 <input
                   type="number"
                   id={`todo-day-${index}`}
-                  value={item.dayNumber}
+                  value={item.day_number}
                   onChange={(e) =>
-                    handleTodoChange(index, "dayNumber", e.target.value)
+                    handleTodoChange(index, "day_number", e.target.value)
                   }
                   className="form-control"
                   min="1"
