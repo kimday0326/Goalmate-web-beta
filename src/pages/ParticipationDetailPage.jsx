@@ -257,29 +257,62 @@ function ParticipationDetailPage() {
                 </div>
               </div>
 
-              <div className="progress-bar-container">
-                <div
-                  className="progress-bar"
-                  style={{
-                    width: `${
-                      goalData.mentee_goal.total_todo_count > 0
-                        ? (goalData.mentee_goal.total_completed_count /
+              {/* 오늘 진행률 프로그래스 바 */}
+              <div className="progress-item">
+                <span className="progress-label">오늘 진행률</span>
+                <div className="progress-bar-container">
+                  <div
+                    className="progress-bar today-progress"
+                    style={{
+                      width: `${
+                        goalData.mentee_goal.today_todo_count > 0
+                          ? (goalData.mentee_goal.today_completed_count /
+                              goalData.mentee_goal.today_todo_count) *
+                            100
+                          : 0
+                      }%`,
+                    }}
+                  ></div>
+                  <span className="progress-text">
+                    {goalData.mentee_goal.today_todo_count > 0
+                      ? Math.round(
+                          (goalData.mentee_goal.today_completed_count /
+                            goalData.mentee_goal.today_todo_count) *
+                            100
+                        )
+                      : 0}
+                    %
+                  </span>
+                </div>
+              </div>
+
+              {/* 전체 진행률 프로그래스 바 */}
+              <div className="progress-item">
+                <span className="progress-label">전체 진행률</span>
+                <div className="progress-bar-container">
+                  <div
+                    className="progress-bar total-progress"
+                    style={{
+                      width: `${
+                        goalData.mentee_goal.total_todo_count > 0
+                          ? (goalData.mentee_goal.total_completed_count /
+                              goalData.mentee_goal.total_todo_count) *
+                            100
+                          : 0
+                      }%`,
+                    }}
+                  ></div>
+                  <span className="progress-text">
+                    {goalData.mentee_goal.total_todo_count > 0
+                      ? Math.round(
+                          (goalData.mentee_goal.total_completed_count /
                             goalData.mentee_goal.total_todo_count) *
-                          100
-                        : 0
-                    }%`,
-                  }}
-                ></div>
-                <span className="progress-text">
-                  {goalData.mentee_goal.total_todo_count > 0
-                    ? Math.round(
-                        (goalData.mentee_goal.total_completed_count /
-                          goalData.mentee_goal.total_todo_count) *
-                          100
-                      )
-                    : 0}
-                  %
-                </span>
+                            100
+                        )
+                      : 0}
+                    %
+                  </span>
+                </div>
               </div>
             </div>
 
