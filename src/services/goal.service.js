@@ -47,7 +47,7 @@ export const getGoalDetail = async (goalId) => {
 // 목표 생성 API
 export const createGoal = async (goalData) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/mentors/me/goals`, {
+    const response = await fetch(`${API_BASE_URL}/goals`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
