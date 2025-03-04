@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getGoalDetail } from "../services/goal.service";
 import "../styles/GoalDetail.css";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 function GoalDetail() {
   const { id } = useParams();
@@ -45,15 +46,7 @@ function GoalDetail() {
       </div>
     );
 
-  if (loading)
-    return (
-      <div className="goal-detail-container">
-        <div className="loading-container">
-          <div className="loading-spinner"></div>
-          <p>데이터를 불러오는 중...</p>
-        </div>
-      </div>
-    );
+  if (loading) return <LoadingSpinner size="big" text={true} />;
 
   return (
     <div className="goal-detail-container">

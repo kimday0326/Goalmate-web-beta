@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import ChatRoom from "../components/ChatRoom";
 import { getCommentRooms } from "../services/comment.service";
-import "../styles/GoalList.css";
 import "../styles/CommentPage.css";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 function CommentPage() {
   const navigate = useNavigate();
@@ -133,7 +133,7 @@ function CommentPage() {
                   disabled={loading}
                 >
                   {loading ? (
-                    <span className="loading-spinner-small"></span>
+                    <LoadingSpinner size="small" />
                   ) : (
                     <svg
                       viewBox="0 0 24 24"

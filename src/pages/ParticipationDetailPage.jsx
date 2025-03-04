@@ -8,6 +8,7 @@ import {
   formatDate,
   parseApiDate,
 } from "../services/participation.service";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 function ParticipationDetailPage() {
   const { id } = useParams();
@@ -159,12 +160,7 @@ function ParticipationDetailPage() {
         </div>
       </div>
 
-      {loading && (
-        <div className="loading-container">
-          <div className="loading-spinner"></div>
-          <p>데이터를 불러오는 중...</p>
-        </div>
-      )}
+      {loading && <LoadingSpinner size="big" text={true} />}
 
       {error && <div className="error-message">{error}</div>}
 

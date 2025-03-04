@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { getComments, createComment } from "../services/comment.service";
 import "../styles/ChatRoom.css";
+import LoadingSpinner from "./LoadingSpinner";
 
 function ChatRoom({ room, onClose }) {
   const [comments, setComments] = useState([]);
@@ -158,8 +159,7 @@ function ChatRoom({ room, onClose }) {
       <div className="chat-body" ref={chatBodyRef}>
         {loading && page === 1 ? (
           <div className="loading-spinner-container">
-            <div className="spinner"></div>
-            <p>코멘트를 불러오는 중...</p>
+            <LoadingSpinner size="big" text={true} />
           </div>
         ) : comments.length === 0 ? (
           <div className="no-comments">

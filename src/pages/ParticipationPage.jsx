@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { getParticipations } from "../services/participation.service";
 import "../styles/GoalList.css";
 import "../styles/ParticipationPage.css";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 function ParticipationPage() {
   const navigate = useNavigate();
@@ -186,7 +187,7 @@ function ParticipationPage() {
                   disabled={loading}
                 >
                   {loading ? (
-                    <span className="loading-spinner-small"></span>
+                    <LoadingSpinner size="small" />
                   ) : (
                     <svg
                       viewBox="0 0 24 24"
