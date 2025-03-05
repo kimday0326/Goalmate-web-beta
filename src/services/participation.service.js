@@ -53,7 +53,7 @@ export const getParticipations = async (goalId, page = 1, size = 10) => {
 
   try {
     const response = await axios.get(
-      `${API_BASE_URL}/api/v2/admin/goals/${goalId}/participations?page=${page}&size=${size}`,
+      `${API_BASE_URL}/v2/goals/${goalId}/participations?page=${page}&size=${size}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,

@@ -4,7 +4,7 @@ import { API_BASE_URL } from "../config/api.config";
 export const getCommentRooms = async (participationId, page, size = 10) => {
   try {
     const response = await fetch(
-      `${API_BASE_URL}/api/v2/admin/participations/${participationId}/comment-rooms?page=${page}&size=${size}`,
+      `${API_BASE_URL}/v2/participations/${participationId}/comment-rooms?page=${page}&size=${size}`,
       {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("access_token")}`,
