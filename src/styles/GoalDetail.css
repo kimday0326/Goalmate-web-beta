@@ -163,6 +163,14 @@
   color: #2196f3;
 }
 
+.open {
+  color: #39c340;
+}
+
+.closed {
+  color: #e43636;
+}
+
 /* 목표 설명 */
 .goal-description h2 {
   font-size: 22px;

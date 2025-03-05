@@ -106,6 +106,12 @@ function GoalDetail() {
                 {goal.current_participants}/{goal.participants_limit}명
               </span>
             </div>
+            <div className="meta-item">
+              <span className="meta-label">상태</span>
+              <span className={`meta-value ${goal.goal_status.toLowerCase()}`}>
+                {goal.goal_status || "상태 미정"}
+              </span>
+            </div>
           </div>
 
           <div className="goal-description">
