@@ -67,3 +67,27 @@ export const createGoal = async (goalData) => {
 export const uploadGoalImage = async (file, onProgress) => {
   return await uploadFile(file, onProgress);
 };
+
+/**
+ * 목표 수정
+ * @param {string} goalId - 수정할 목표 ID
+ * @param {object} goalData - 수정할 목표 데이터
+ * @returns {Promise<object>} - 응답 객체
+ */
+export const updateGoal = async (goalId, goalData) => {
+  try {
+    // 여기에 실제 API 호출 코드가 들어갈 예정
+    // 현재는 임시로 성공 응답을 반환
+    return {
+      status: "SUCCESS",
+      message: "목표가 성공적으로 수정되었습니다.",
+      data: goalData,
+    };
+  } catch (error) {
+    console.error("목표 수정 실패:", error);
+    return {
+      status: "FAIL",
+      message: error.message || "목표 수정에 실패했습니다.",
+    };
+  }
+};

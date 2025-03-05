@@ -7,6 +7,7 @@ import ParticipationPage from "./pages/ParticipationPage";
 import ParticipationDetailPage from "./pages/ParticipationDetailPage";
 import GoalCreatePage from "./pages/GoalCreatePage";
 import CommentPage from "./pages/CommentPage";
+import GoalEditPage from "./pages/GoalEditPage";
 import "./styles/App.css";
 
 // 인증 상태 체크 및 보호된 라우트 컴포넌트
@@ -36,6 +37,7 @@ function App() {
                     <Route path="/goals" element={<GoalList />} />
                     <Route path="/goals/create" element={<GoalCreatePage />} />
                     <Route path="/goals/:id" element={<GoalDetail />} />
+                    <Route path="/goals/:id/edit" element={<GoalEditPage />} />
                     <Route path="/comments" element={<CommentPage />} />
                     <Route
                       path="/participations"
