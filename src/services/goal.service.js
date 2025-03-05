@@ -91,3 +91,27 @@ export const updateGoal = async (goalId, goalData) => {
     };
   }
 };
+
+/**
+ * 목표 상태를 변경합니다
+ * @param {number} goalId - 목표 ID
+ * @param {string} status - 변경할 상태 (OPEN 또는 CLOSED)
+ * @returns {Promise<Object>}
+ */
+export const updateGoalStatus = async (goalId, status) => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/v2/goals/${goalId}/status`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+      },
+      body: JSON.stringify({ status }),
+    });
+
+    return await response.json();
+  } catch (error) {
+    console.error("목표 상태 변경 오류:", error);
+    throw error;
+  }
+};

@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { getGoalDetail } from "../services/goal.service";
+import { getGoalDetail, updateGoalStatus } from "../services/goal.service";
 import "../styles/GoalDetail.css";
 import LoadingSpinner from "../components/LoadingSpinner";
 
@@ -10,10 +10,27 @@ function GoalDetail() {
   const [goal, setGoal] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [statusLoading, setStatusLoading] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
 
   useEffect(() => {
     fetchGoalDetail();
   }, [id]);
+
+  useEffect(() => {
+    // 드롭다운 외부 클릭 시 닫기
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const fetchGoalDetail = async () => {
     setLoading(true);
@@ -37,6 +54,44 @@ function GoalDetail() {
 
   const handleBack = () => {
     navigate(-1);
+  };
+
+  // 상태 변경 핸들러
+  const handleStatusChange = async (newStatus) => {
+    if (statusLoading || goal.goal_status === newStatus) {
+      setDropdownOpen(false);
+      return;
+    }
+
+    setStatusLoading(true);
+    setDropdownOpen(false);
+
+    try {
+      const response = await updateGoalStatus(id, newStatus);
+      if (response.status === "SUCCESS") {
+        // 상태 업데이트 성공 시 목표 정보 다시 불러오기
+        fetchGoalDetail();
+      } else {
+        alert(response.message || "상태 변경에 실패했습니다.");
+      }
+    } catch (error) {
+      console.error("상태 변경 오류:", error);
+      alert("상태 변경에 실패했습니다.");
+    } finally {
+      setStatusLoading(false);
+    }
+  };
+
+  // 상태에 따른 스타일 클래스 반환
+  const getStatusClass = (status) => {
+    switch (status) {
+      case "OPEN":
+        return "status-open";
+      case "CLOSED":
+        return "status-closed";
+      default:
+        return "status-unknown";
+    }
   };
 
   if (error)
@@ -108,9 +163,42 @@ function GoalDetail() {
             </div>
             <div className="meta-item">
               <span className="meta-label">상태</span>
-              <span className={`meta-value ${goal.goal_status.toLowerCase()}`}>
-                {goal.goal_status || "상태 미정"}
-              </span>
+              <div className="status-dropdown-container" ref={dropdownRef}>
+                <button
+                  className={`status-dropdown-button ${getStatusClass(
+                    goal.goal_status
+                  )}`}
+                  onClick={() =>
+                    !statusLoading && setDropdownOpen(!dropdownOpen)
+                  }
+                  disabled={statusLoading}
+                >
+                  {statusLoading ? (
+                    <span className="loading-spinner-small"></span>
+                  ) : (
+                    <>
+                      {goal.goal_status || "상태 미정"}
+                      <span className="dropdown-arrow">▼</span>
+                    </>
+                  )}
+                </button>
+                {dropdownOpen && (
+                  <div className="status-dropdown-menu">
+                    <div
+                      className={`status-option ${getStatusClass("OPEN")}`}
+                      onClick={() => handleStatusChange("OPEN")}
+                    >
+                      OPEN
+                    </div>
+                    <div
+                      className={`status-option ${getStatusClass("CLOSED")}`}
+                      onClick={() => handleStatusChange("CLOSED")}
+                    >
+                      CLOSED
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
 

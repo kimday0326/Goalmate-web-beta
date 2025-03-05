@@ -91,7 +91,9 @@ function LoginPage() {
                 />
                 <label htmlFor="isAdmin">관리자로 로그인</label>
               </div>
-              <button type="submit">로그인</button>
+              <button className="login-button" type="submit">
+                로그인
+              </button>
             </form>
           </div>
         </div>

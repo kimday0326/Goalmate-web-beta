@@ -160,7 +160,7 @@ input[type="password"]:focus {
   color: #666;
 }
 
-button {
+.login-button {
   background-color: #aeff23;
   color: black;
   border: none;
@@ -173,12 +173,12 @@ button {
   width: 100%;
 }
 
-button:hover {
+.login-button:hover {
   background-color: #9ee620;
   transform: translateY(-1px);
 }
 
-button:active {
+.login-button:active {
   transform: translateY(0);
 }
 
