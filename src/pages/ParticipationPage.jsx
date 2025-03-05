@@ -5,6 +5,9 @@ import "../styles/GoalList.css";
 import "../styles/ParticipationPage.css";
 import LoadingSpinner from "../components/LoadingSpinner";
 
+// 상수 정의
+const WITHDRAWN_USER = "Unknown";
+
 function ParticipationPage() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -76,6 +79,14 @@ function ParticipationPage() {
 
   const viewParticipationDetail = (participationId) => {
     navigate(`/participations/${participationId}`);
+  };
+
+  // 멘티 이름 표시 함수
+  const renderMenteeName = (menteeName) => {
+    if (menteeName === WITHDRAWN_USER) {
+      return <span className="withdrawn-user">{menteeName} (탈퇴)</span>;
+    }
+    return menteeName;
   };
 
   const getStatusClass = (status) => {
@@ -283,7 +294,7 @@ function ParticipationPage() {
                       style={{ cursor: "pointer" }}
                     >
                       <td>{participation.id}</td>
-                      <td>{participation.menteeName}</td>
+                      <td>{renderMenteeName(participation.menteeName)}</td>
                       <td>{participation.mentorName}</td>
                       <td>{participation.title}</td>
                       <td>{participation.startDate}</td>
