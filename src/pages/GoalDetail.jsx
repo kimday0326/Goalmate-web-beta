@@ -89,6 +89,8 @@ function GoalDetail() {
         return "status-open";
       case "CLOSED":
         return "status-closed";
+      case "DISABLED":
+        return "status-disabled";
       default:
         return "status-unknown";
     }
@@ -195,6 +197,12 @@ function GoalDetail() {
                       onClick={() => handleStatusChange("CLOSED")}
                     >
                       CLOSED
+                    </div>
+                    <div
+                      className={`status-option ${getStatusClass("DISABLED")}`}
+                      onClick={() => handleStatusChange("DISABLED")}
+                    >
+                      DISABLED
                     </div>
                   </div>
                 )}

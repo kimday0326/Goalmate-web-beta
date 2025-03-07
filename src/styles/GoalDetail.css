@@ -220,15 +220,19 @@
 
 /* 상태별 색상 */
 .status-open {
-  background-color: #4caf50; /* 연한 초록색 - OPEN */
+  background-color: #2ecc71; /* 밝은 초록색 - OPEN */
 }
 
 .status-closed {
-  background-color: #ff5252; /* 연한 빨간색 - CLOSED */
+  background-color: #e74c3c; /* 선명한 빨간색 - CLOSED */
+}
+
+.status-disabled {
+  background-color: #95a5a6; /* 부드러운 회색 - DISABLED */
 }
 
 .status-unknown {
-  background-color: #9e9e9e; /* 회색 - 상태 미정 */
+  background-color: #95a5a6; /* 부드러운 회색 - DISABLED */
 }
 
 /* 작은 로딩 스피너 */
