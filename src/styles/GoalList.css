@@ -149,11 +149,12 @@
 .status {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   padding: 6px 12px;
   border-radius: 20px;
   font-size: 0.85rem;
   font-weight: 500;
-  line-height: 1;
+  line-height: 1.2;
 }
 
 .status.open {
@@ -166,6 +167,11 @@
   color: #c62828;
 }
 
+.status.disabled {
+  background-color: #e0e0e0;
+  color: #757575;
+}
+
 /* 마감임박 뱃지 */
 .closing-badge {
   display: inline-flex;
@@ -176,7 +182,7 @@
   border-radius: 20px;
   font-size: 0.85rem;
   font-weight: 500;
-  line-height: 1;
+  line-height: 1.2;
 }
 
 /* 멘티현황 버튼 */
